@@ -1,6 +1,5 @@
 import React from "react";
-import { render } from "react-dom";
-import { Field, Form, Formik, FormikActions, FormikProps } from "formik";
+import { Field, Form, Formik } from "formik";
 import CustomSelect from "./CustomSelect";
 
 import "./App.css";
@@ -37,12 +36,13 @@ const languageOptions = [
 ];
 
 const MultiSelectForm = () => {
-  const onSubmit = (values, actions) => {
+  const onSubmit = (values, {setSubmitting}) => {
+    setSubmitting(true)
     alert(JSON.stringify(values, null, 2));
-    actions.setSubmitting(false);
+    setSubmitting(false);
   };
 
-  const renderForm = (formikBag) => (
+  const renderForm = ({handleReset, dirty, isSubmitting}) => (
     <Form>
       <Field
         className="custom-select"
@@ -63,8 +63,8 @@ const MultiSelectForm = () => {
       <button
         type="button"
         className="outline"
-        onClick={formikBag.handleReset}
-        disabled={!formikBag.dirty || formikBag.isSubmitting}
+        onClick={handleReset}
+        disabled={!dirty || isSubmitting}
       >
         Reset
       </button>

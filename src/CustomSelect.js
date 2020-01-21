@@ -1,9 +1,6 @@
 import { FieldProps } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 import Select from "react-select";
-
-
-
 
 export const CustomSelect = ({
   className,
@@ -13,16 +10,16 @@ export const CustomSelect = ({
   options,
   isMulti = false
 }) => {
-  const onChange = (option) => {
+  const onChange = useCallback((option) => {
     form.setFieldValue(
       field.name,
       isMulti
         ? (option ).map((item) => item.value)
         : (option ).value
     );
-  };
+  });
 
-  const getValue = () => {
+  const getValue = useCallback( () => {
     if (options) {
       return isMulti
         ? options.filter(option => field.value.indexOf(option.value) >= 0)
@@ -30,7 +27,7 @@ export const CustomSelect = ({
     } else {
       return isMulti ? [] : '';
     }
-  };
+  })
 
   return (
     <Select
