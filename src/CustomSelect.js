@@ -1,8 +1,7 @@
-
 import React from "react";
 import Select from "react-select";
 
- const CustomSelect = ({
+const CustomSelect = ({
   className,
   placeholder,
   field,
@@ -10,13 +9,10 @@ import Select from "react-select";
   options,
   isMulti = false
 }) => {
-  const onChange = (option) => {
-    console.log(option);
+  const onChange = option => {
     form.setFieldValue(
       field.name,
-      isMulti
-        ? (option).map((item) => item.value)
-        : (option).value
+      option ? option.map(item => item.value) : []
     );
   };
 
